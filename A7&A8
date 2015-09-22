@@ -32,3 +32,9 @@ http://example.com/app/transferFunds?amount=1500&destinationAccount=4673243243
 Vì vậy, những kẻ tấn công xây dựng một yêu cầu mà sẽ chuyển tiền từ tài khoản của nạn nhân vào tài khoản của kẻ tấn công, và sau đó nhúng cuộc tấn công này trong một yêu cầu hình ảnh hoặc khung nội tuyến được lưu trữ trên các trang web khác nhau dưới sự kiểm soát của kẻ tấn công:
 <img src="http://example.com/app/transferFunds?amount=1500&destinationAccount=attackersAcct#" width="0" height="0" />
 Nếu nạn nhân đến thăm bất kỳ trang web của kẻ tấn công trong khi đã được xác thực để example.com, những yêu cầu này giả mạo sẽ tự động bao gồm thông tin phiên làm việc của người sử dụng, cho phép theo yêu cầu của kẻ tấn công. Như vậy kẻ tấn công có thể chuyển tiền từ người sử dụng sang tài khoản của mình.
+Tài liệu tham khảo
+http://www.tutorialspoint.com/security_testing/cross_site_request_forgery.htm
+http://www.tutorialspoint.com/security_testing/missing_function_level_access_control.htm
+https://www.tinfoilsecurity.com/blog/what-is-cross-site-request-forgery-csrf
+https://www.owasp.org/index.php/Top_10_2013-A8-Cross-Site_Request_Forgery_%28CSRF%29
+https://www.owasp.org/index.php/Top_10_2013-A7-Missing_Function_Level_Access_Control
