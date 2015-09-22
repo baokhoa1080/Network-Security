@@ -1,0 +1,34 @@
+Missing Function Level Access Control
+•	Function Level Access Control : là 1 hàm xác minh các quyền của từng user có thể làm được trong yêu cầu gửi lên phía server.
+•	Đích ngắm tới của kiểu tấn công này : Tấn công vào lỗ hổng khi mà server không xác thực quyền của các user khi các user gửi 1 truy cập trái phép vào bằng quyền admin với cách thay đổi  trực tiếp đường link URL hoặc 1 số tham số để có thể truy cập vào các chức năng tin không  được bảo vệ.
+•	Điểm yếu bảo mật của phương thức tấn công này : Các ứng dụng không luôn luôn bảo vệ các chức năng ứng dụng đúng cách. Đôi khi, cấp bảo vệ chức năng được quản lý thông qua cấu hình, và hệ thống là cấu hình sai. Đôi khi, các nhà phát triển phải thêm các mã kiểm tra thích hợp mà họ quên.
+Phát hiện sai sót như vậy là dễ dàng. Phần khó nhất là xác định những trang nào (URL) hoặc các chức năng tồn tại để tấn công.
+•	Tác động kỹ thuật của Phương thức tấn công : Sai sót như vậy cho phép tin tặc truy cập chức năng trái phép. Chức năng quản trị là những mục tiêu quan trọng cho kiểu tấn công này.
+Ví dụ : 
+Các hacker chỉ đơn giản là buộc các URL mục tiêu. Thường truy cập admin yêu cầu xác thực, tuy nhiên, nếu truy cập ứng dụng là không xác nhận một người dùng không được thẩm định có thể truy cập trang quản trị.
+' Below URL might be accessible to an authenticated user
+http://website.com/app/standarduserpage
+
+' A NON Admin user is able to access admin page without authorization.
+http://website.com/app/admin_page
+
+Tại ví dụ trên : Bình thường thì ban đầu vào chúng ta là 1 user bình thường và chỉ có thể xem và truy cập vào   các chức năng mà trang web cung cấp cho các user bình thường hoặc các ẩn danh khác. Nhưng khi thay đổi đường dẫn thứ 2 thì bạn đích thị vào website với quyền admin trong khi bạn không có quyền admin và không login vào hệ thống với quyền admin.
+Cross-Site Request Forgery (CSRF)
+Cross-Site Request Forgery (CSRF) là một cuộc tấn công, buộc người dùng phải có để thực hiện các hành động không mong muốn trên một ứng dụng web.
+Các cuộc tấn công CSRF có hiệu quả trong một số tình huống, bao gồm:
+-	Các nạn nhân có một phiên hoạt động trên các trang web mục tiêu.
+-	Nạn nhân được xác thực thông qua HTTP auth trên trang web mục tiêu.
+-	Nạn nhân là trên mạng cùng một mạng như các trang web mục tiêu.
+Mối nguy hiểm: Qua cuộc tấn công CSRF thì với những trang đã được xác thực người dung bằng trình duyệt của nạn nhân, kẻ tấn công có thể tạo1 lệnh giả mạo như chuyển tiền, mua đồ từ các trang thương mại điện tử khi ta đã kết nối tài khoản ngân hàng vào trong tài khoản của trang thương mại điện tử đó.
+Lỗ hổng bảo mật : CSRF mất lợi thế thực tế là hầu hết các ứng dụng web cho phép kẻ tấn công để dự đoán tất cả các chi tiết của một hành động cụ thể.
+
+Vì các trình duyệt gửi các thông tin như cookies tự động, kẻ tấn công có thể tạo ra các trang web độc hại mà tạo giả mạo yêu cầu mà không thể phân biệt từ những user hợp pháp.
+
+Phát hiện lỗ hổng CSRF là khá dễ dàng thông qua thử nghiệm thâm nhập hoặc phân tích mã.
+Cách thức tấn công : Những kẻ tấn công có thể đánh lừa nạn nhân vào thực hiện bất kỳ hoạt động thay đổi các nạn nhân được ủy quyền thực hiện, ví dụ như, cập nhật chi tiết tài khoản, mua hàng, đăng xuất và thậm chí đăng nhập.
+Ví dụ :
+Ứng dụng này cho phép người dùng để gửi yêu cầu nhà nước thay đổi mà không bao gồm bất cứ điều gì bí mật. Ví dụ như:
+http://example.com/app/transferFunds?amount=1500&destinationAccount=4673243243
+Vì vậy, những kẻ tấn công xây dựng một yêu cầu mà sẽ chuyển tiền từ tài khoản của nạn nhân vào tài khoản của kẻ tấn công, và sau đó nhúng cuộc tấn công này trong một yêu cầu hình ảnh hoặc khung nội tuyến được lưu trữ trên các trang web khác nhau dưới sự kiểm soát của kẻ tấn công:
+<img src="http://example.com/app/transferFunds?amount=1500&destinationAccount=attackersAcct#" width="0" height="0" />
+Nếu nạn nhân đến thăm bất kỳ trang web của kẻ tấn công trong khi đã được xác thực để example.com, những yêu cầu này giả mạo sẽ tự động bao gồm thông tin phiên làm việc của người sử dụng, cho phép theo yêu cầu của kẻ tấn công. Như vậy kẻ tấn công có thể chuyển tiền từ người sử dụng sang tài khoản của mình.
